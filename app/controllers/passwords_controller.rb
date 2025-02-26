@@ -5,16 +5,16 @@ class PasswordsController < ApplicationController
   LETTERS = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",
            "r","s","t","u","v","w","x","y","z"]
 
-  ALPHA_NUMER = {'a': 1,'b': 2,'c': 3,'d': 4,'e': 5,'f': 6,'g': 7, 'h': 8,'i': 9,
-                'j': 10,'k': 11,'l': 12,'m': 13,'n': 14,'o': 15,'p': 16,'q': 17,
-                'r': 18,'s': 19,'t': 20,'u': 21,'v': 22,'w': 23,'x': 24,'y': 25,
-                'z': 26}
+  ALPHA_NUMER = {'a' => 1,'b' => 2,'c' => 3,'d' => 4,'e' => 5,'f' => 6,'g' => 7, 'h' => 8,'i' => 9,
+                'j' => 10,'k' => 11,'l' => 12,'m' => 13,'n' => 14,'o' => 15,'p' => 16,'q' => 17,
+                'r' => 18,'s' => 19,'t' => 20,'u' => 21,'v' => 22,'w' => 23,'x' => 24,'y' => 25,
+                'z' => 26}
 
-  ALPHA_NUMER_STRINGS = {'a': '1','b': '2','c': '3','d': '4','e': '5','f': '6',
-                        'g': '7','h': '8','i': '9','j': '10','k': '11','l': '12',
-                        'm': '13','n': '14','o': '15','p': '16','q': '17','r': '18',
-                        's': '19','t': '20','u': '21','v': '22','w': '23','x': '24',
-                        'y': '25','z': '26'}
+  ALPHA_NUMER_STRINGS = {'a' => '1','b' => '2','c' => '3','d' => '4','e' => '5','f' => '6',
+                        'g' => '7','h' => '8','i' => '9','j' => '10','k' => '11','l' => '12',
+                        'm' => '13','n' => '14','o' => '15','p' => '16','q' => '17','r' => '18',
+                        's' => '19','t' => '20','u' => '21','v' => '22','w' => '23','x' => '24',
+                        'y' => '25','z' => '26'}
 
   SAMPLE_TEXT = "The Lord is my shepherd, I shall not want."
 
@@ -72,21 +72,25 @@ class PasswordsController < ApplicationController
   ### Decoding Functions ###
 
     
-  def text_to_number_first(text: str) -> str:
+  def text_to_number_first(text)
     number_string = ""
-    for char in text:
-        if char.isalpha():
-            number_string += ALPHA_NUMER_STRINGS[char.lower()]
+    text.chars.each do |char|
+      if char.match?(/\A[a-zA-Z]+\z/)
+        number_string += ALPHA_NUMER_STRINGS[char.downcase]
+      end
+    end
     return number_string
+  end
 
-  def image_to_number_first(im) -> str:
+  def image_to_number_first(im)
     width, height = im.size
     mid = height // 2
     number_str = ""
     for x in range(width):
-        r,g,b = im.getpixel((x, mid))
-        number_str += str(r+g+b)
+      r,g,b = im.getpixel((x, mid))
+      number_str += str(r+g+b)
     return number_str
+  end
 
   def number_to_years(number_string: str, n: int) -> list[str]:
     years = [number_string[i:i+n] for i in range(0, len(number_string), n)]
