@@ -64,9 +64,9 @@ class PasswordsController < ApplicationController
     return mod10
   end
 
-  def download_image(url, save_as="image.jpg"):
-    urllib.request.urlretrieve(url, save_as)
-  end
+  # def download_image(url, save_as="image.jpg"):
+  #   urllib.request.urlretrieve(url, save_as)
+  # end
 
   
   ### Decoding Functions ###
@@ -82,19 +82,20 @@ class PasswordsController < ApplicationController
     return number_string
   end
 
-  def image_to_number_first(im)
-    width, height = im.size
-    mid = height // 2
-    number_str = ""
-    for x in range(width):
-      r,g,b = im.getpixel((x, mid))
-      number_str += str(r+g+b)
-    return number_str
-  end
+  # def image_to_number_first(im)
+  #   width, height = im.size
+  #   mid = height // 2
+  #   number_str = ""
+  #   for x in range(width):
+  #     r,g,b = im.getpixel((x, mid))
+  #     number_str += str(r+g+b)
+  #   return number_str
+  # end
 
-  def number_to_years(number_string: str, n: int) -> list[str]:
-    years = [number_string[i:i+n] for i in range(0, len(number_string), n)]
-    return years
+  def number_to_years(number_string, n)
+    years = number_string.chars.each_slice(n).map(&:join)
+    years
+  end
 
   def years_list_to_doomsdays(years_list: list[str]) -> list[int]:
     doomsdays = []
