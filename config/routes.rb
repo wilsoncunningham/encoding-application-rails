@@ -8,6 +8,6 @@ Rails.application.routes.draw do
 
   post("/generate_password", {:controller => "passwords", :action => "generate_password"})
 
-  get("/password", {:controller => "passwords", :action => "show"})
+  # get("/password", {:controller => "passwords", :action => "show"})
   
 end

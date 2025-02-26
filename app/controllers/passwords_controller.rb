@@ -200,10 +200,10 @@ class PasswordsController < ApplicationController
     # redirect_to("/password")
   end
 
-  def show
-    @password = generate_password
-    render({:template => "submission"})
-  end
+  # def show
+  #   @password = generate_password
+  #   render({:template => "submission"})
+  # end
 
 end
 

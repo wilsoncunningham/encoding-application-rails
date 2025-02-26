@@ -32,24 +32,37 @@
     <label for="input_type_image_file">Image File</label>
   </div>
 
+  <br>
+
   <div>
-    <label for="input_content_text">Input Content</label>
+    <label for="input_content_text">Text or Image Link</label>
     <br>
     <textarea id="input_content_text" name="query_content_text" rows="8" cols="60"></textarea>
   </div>
 
+  <br>
+
   <div>
-    <label for="input_content_file">Input Image File</label>
+    <label for="input_content_file">Image File</label>
     <br>
     <input type="file" id="input_content_image_file" name="query_image_file">
   </div>
 
-
+  <br>
 
   <div>
     <label for="input_complexity">Complexity</label>
     <input type="number" id="input_complexity" name="query_complexity" min="1" value="3">
+
+    <div>
+      <p>
+        (Note: The <i>complexity</i> modifies the creation of the password.
+        A low complexity creates a long password, and a high complexity creates a short password.)
+      </p>
+    </div>
   </div>
+
+  <br>
 
   <button>Create Password</button>
 </form>
