@@ -184,11 +184,24 @@ class PasswordsController < ApplicationController
 
 
   def generate_password
-    redirect_to("/password")
+    @complexity = params.fetch("query_complexity").to_i
+    @complexity_class = @complexity.class
+    @input_type = params.fetch("query_type")
+
+    if @input_type == "Text"
+      text_body = params.fetch("query_content_text")
+      @password = decode(text_body, @complexity)
+    end
+
+    # @password = "Good job"
+
+    render({:template => "submission"})
+
+    # redirect_to("/password")
   end
 
   def show
-    @input_type = params.fetch("query_type")
+    @password = generate_password
     render({:template => "submission"})
   end
 
