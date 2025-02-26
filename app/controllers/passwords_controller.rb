@@ -183,7 +183,14 @@ class PasswordsController < ApplicationController
   # end
 
 
+  def generate_password
+    redirect_to("/password")
+  end
 
+  def show
+    @input_type = params.fetch("query_type")
+    render({:template => "submission"})
+  end
 
 end
 
@@ -192,30 +199,6 @@ end
 
 
 # Debugging Help #
-
-def generate_rand_ddays(len: int):
-    """Generates a list of random ddays of desired length"""
-    ddays = []
-    for _ in range(len):
-        ddays.append(random.randint(0,6))
-    return ddays
-    
-### Useful debug strategy below ###
-# ddays_book = []
-# for i in range(25):
-#     ddays_book.append(generate_rand_ddays(30))
-
-# for ddays in ddays_book:
-#     print(ddays_modded_joined(ddays))
-#####################
-
-
-
-
-#%%
-# Examples #
-SAMPLE_TEXT = "The Lord is my shepherd, I shall not want."
-print(decode(SAMPLE_TEXT, 4))
 
 # SAMPLE_IMAGE = Image.open("ronald_reagan.jpg")
 # print(decode(SAMPLE_IMAGE, 220))

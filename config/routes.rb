@@ -5,5 +5,9 @@ Rails.application.routes.draw do
   # get "/your_first_screen" => "pages#first"
 
   get("/", {:controller => "home", :action => "show"})
+
+  post("/generate_password", {:controller => "passwords", :action => "generate_password"})
+
+  get("/password", {:controller => "passwords", :action => "show"})
   
 end
