@@ -97,33 +97,40 @@ class PasswordsController < ApplicationController
     years
   end
 
-  def years_list_to_doomsdays(years_list: list[str]) -> list[int]:
+  def years_list_to_doomsdays(years_list)
     doomsdays = []
-    for year_str in years_list:
-        year = int(year_str)
-        doomsdays.append(doomsday(year))
+    years_list.each do |year_str|
+      year = year_str.to_i
+      doomsdays.append(doomsday(year))
     # print(f"These are the doomsdays: {doomsdays}")
+    end
     return doomsdays
+  end
 
-  def ddays_modded_joined(ddays_list: list[int]) -> str:
+  
+  def ddays_modded_joined(ddays_list)
     """
     Since the ddays only range from 0 to 6, we will modify the numbers, ensuring
     variety in all digits. We will do so by (1) joining the ddays into 3-digit
     numbers, and (2) converting these 3-digit mod7 numbers into mod10. Also, we
     will take this list of numbers and convert in into a joined string of numbers
     """
-    ddays_strings = [str(dday) for dday in ddays_list]
-    ddays_joined_str = "".join(ddays_strings)
-    ddays_3s = number_to_years(ddays_joined_str, 3) # a list of 3dig str nums
-    
-    mod10_list = []
-    for mod7 in ddays_3s:
-        mod10_list.append(mod7_mod10(str(mod7)))
-
-    mod10_strings = [str(mod10) for mod10 in mod10_list]
-    modded_joined = "".join(mod10_strings)
-
-    return modded_joined
+    # Convert each element to a string
+    ddays_strings = ddays_list.map(&:to_s)
+  
+    # Join all elements into a single string
+    ddays_joined_str = ddays_strings.join
+  
+    # Split into 3-digit segments
+    ddays_3s = number_to_years(ddays_joined_str, 3) # list of 3-digit string numbers
+  
+    # Convert each 3-digit mod7 number into mod10
+    mod10_list = ddays_3s.map { |mod7| mod7_mod10(mod7.to_s) }
+  
+    # Join the modified numbers into a final string
+    mod10_list.join
+  end
+  
 
   def number_str_to_ascii(number_string: str) -> list[int]:
     ### The characters we want range from 33 to 126 in ASCII codes
