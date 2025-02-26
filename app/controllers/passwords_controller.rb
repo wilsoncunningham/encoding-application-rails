@@ -107,7 +107,7 @@ class PasswordsController < ApplicationController
     return doomsdays
   end
 
-  
+
   def ddays_modded_joined(ddays_list)
     """
     Since the ddays only range from 0 to 6, we will modify the numbers, ensuring
@@ -132,50 +132,55 @@ class PasswordsController < ApplicationController
   end
   
 
-  def number_str_to_ascii(number_string: str) -> list[int]:
-    ### The characters we want range from 33 to 126 in ASCII codes
-    # So, for simplicity, we will just take 2-digit numbers in the sequence,
-    # and we will negate the number if it is greater than 93 (126-33)
-    doubles = [int(number_string[i:i+2]) for i in range(0, len(number_string), 2)]
-    for number in doubles:
-        if number > 93:
-            doubles.remove(number)
-    ascii_codes = [number + 33 for number in doubles]
-    return ascii_codes
+  def number_str_to_ascii(number_string)
+    # Split the string into 2-digit numbers
+    doubles = number_string.chars.each_slice(2).map(&:join).map(&:to_i)
 
-  def ascii_codes_to_password(ascii_codes: list[int]) -> str:
-    password = ""
-    for code in ascii_codes:
-        password += chr(code)
-    return password
+    # Remove numbers greater than 93
+    doubles.reject! { |number| number > 93 }
+
+    # Convert remaining numbers to ASCII codes by adding 33
+    ascii_codes = doubles.map { |number| number + 33 }
+
+    ascii_codes
+  end
+
+  def ascii_codes_to_password(ascii_codes)
+    # Convert ASCII codes to characters and join into a string
+    ascii_codes.map(&:chr).join
+  end
 
 
   # Execution of Decoding #
 
-  def decode(input, complexity: int) -> str:
-    """Given a sample body of text or image, use a special set of pre-dictated
-    rules to reveal the secret code. The complexity is  the number of digits
-    in the years computed in the early steps"""
 
-    if isinstance(input, str):
-        first_number_string = text_to_number_first(input)
-    else:
-        first_number_string = image_to_number_first(input)
-
+  def decode(input, complexity)
+    # Given a sample body of text or image, use a special set of pre-dictated
+    # rules to reveal the secret code. The complexity is the number of digits
+    # in the years computed in the early steps.
+  
+    first_number_string = if input.is_a?(String)
+                            text_to_number_first(input)
+                          else
+                            image_to_number_first(input)
+                          end
+  
     years_list = number_to_years(first_number_string, complexity)
     doomsdays = years_list_to_doomsdays(years_list)
     modded_joined = ddays_modded_joined(doomsdays)
     ascii_codes = number_str_to_ascii(modded_joined)
-
+  
     password = ascii_codes_to_password(ascii_codes)
-    return password
-
-  def decode_url(url: str, complexity: int) -> str:
-    download_image(url, "image.jpg")
-    img = Image.open("image.jpg")
-    password = decode(img, complexity)
-    return password
+    password
   end
+    
+
+  # def decode_url(url: str, complexity: int) -> str:
+  #   download_image(url, "image.jpg")
+  #   img = Image.open("image.jpg")
+  #   password = decode(img, complexity)
+  #   return password
+  # end
 
 
 
