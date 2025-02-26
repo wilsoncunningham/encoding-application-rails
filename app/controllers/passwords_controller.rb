@@ -39,30 +39,33 @@ class PasswordsController < ApplicationController
   def doomsday(year)
     anchor = calculate_anchor(year)
     year_str = year.to_s
-    y = (year_str[-2:]).to_i
-    a = y // 12
+    y = (year_str[-2..]).to_i
+    a = y / 12
     b = y % 12
-    c = (y % 12) // 4
+    c = (y % 12) / 4
 
     doomsday = ((a+b+c) % 7 + anchor) % 7
     return doomsday
   end
 
-  def mod7_mod10(num: int) -> int:
-      """Convert a mod 7 number into mod 10"""
-      mod7_str = str(num)
-      power = 0
-      partial_sums = []
-      for digit in range(len(mod7_str)-1, -1, -1):
-          partial_sum = int(mod7_str[digit]) * (7 ** power)
-          partial_sums.append(partial_sum)
-          power += 1
-      
-      mod10 = sum(partial_sums)
-      return mod10
+  def mod7_mod10(num)
+    """Convert a mod 7 number into mod 10"""
+    mod7_str = num.to_s
+    power = 0
+    partial_sums = []
+
+    (mod7_str.length - 1).downto(0) do |digit|
+      partial_sum = mod7_str[digit].to_i * (7**power)
+      partial_sums << partial_sum
+      power += 1
+    end
+  
+    mod10 = partial_sums.sum
+    return mod10
+  end
 
   def download_image(url, save_as="image.jpg"):
-      urllib.request.urlretrieve(url, save_as)
+    urllib.request.urlretrieve(url, save_as)
 
 end
 
