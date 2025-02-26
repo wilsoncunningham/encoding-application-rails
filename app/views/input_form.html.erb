@@ -9,56 +9,29 @@
     Please select your input type
   </label>
 
+  <div>
+    <input type="radio" id="input_type_text" name="query_type_text" checked="checked">
+    <label for="input_type_text">Text</label>
+  </div>
 
-    <div>
-      <input type="radio" id="input_type_text" name="query_type_text" value="Text">
-      <label for="input_type_text">Text</label>
-    </div>
+  <div>
+    <input type="radio" id="input_type_image_link" name="query_type_image_link">
+    <label for="input_type_image_link">Image Link</label>
+  </div>
 
-    <div>
-      <input type="radio" id="input_type_image_link" name="query_type_image_link" value="Image Link">
-      <label for="input_type_image_link">Image Link</label>
-    </div>
+  <div>
+    <input type="radio" id="input_type_image_file" name="query_type_image_file">
+    <label for="input_type_image_file">Image File</label>
+  </div>
 
-    <div>
-      <input type="radio" id="input_type_image_file" name="query_type_image_file" value="Image File">
-      <label for="input_type_image_file">Image File</label>
-    </div>
+  <div>
+    <label for="input_content_text">Input Content</label>
+    <br>
+    <textarea id="input_content_text" name="query_content_text" rows="8" cols="60"></textarea>
+  </div>
 
-
-
-
-
-
-<section id="overlay">
-    <form id="passwordForm" method="POST" action="/generate-password" autocomplete="off"> 
-      <!-- action="submission.html" -->
-      <h1>Decoder</h1>
-      <section class="input-info">
-          <label for="input_body">Please enter your input.<br>Leave blank if submitting image.</label>
-          <br>
-              <textarea name="input_body" id="input_body" rows="10" cols="40">
-              </textarea>
-          <!-- <br>
-              <label for="image">Image (optional)</label>
-                  <input type="image" name="image_input" id="image_input"> -->
-          <br>
-          <br>
-              <label for="complexity">Complexity</label>
-                  <input type="number" name="complexity" id="complexity"
-                  min="1" required>
-      </section>
-  <section class="protein">
-        <label for="input_type">What type is your input?</label>
-        <select name="input_type" id="input_type">
-          <option value="text">Text</option>
-          <option value="url">URL</option>
-          <option value="other">Other</option>
-        </select>
-      </section>
-      <hr>
-      <section class="submission">
-        <input type="submit" value="Generate Password">
-      </section>
-    </form> 
-  </section>
+  <div>
+    <label for="input_complexity">Complexity</label>
+    <input type="number" id="input_complexity" name="query_complexity" min="1" value="5">
+  </div>
+</form>
