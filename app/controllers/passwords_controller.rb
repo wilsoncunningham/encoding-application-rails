@@ -1,5 +1,10 @@
 class PasswordsController < ApplicationController
 
+  # require 'open-uri'
+  # require 'stringio'
+  # require 'mini_magick'
+
+
   ### CONSTANTS ###
 
   LETTERS = ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q",

@@ -461,6 +461,7 @@ DEPENDENCIES
   http
   importmap-rails
   jbuilder
+  mini_magick
   pg (~> 1.1)
   pry-rails
   puma
