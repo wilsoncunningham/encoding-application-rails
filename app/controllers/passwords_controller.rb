@@ -1,8 +1,8 @@
 class PasswordsController < ApplicationController
 
-  # require 'open-uri'
-  # require 'stringio'
-  # require 'mini_magick'
+  require 'open-uri'
+  require 'stringio'
+  require 'mini_magick'
 
 
   ### CONSTANTS ###
@@ -213,7 +213,21 @@ class PasswordsController < ApplicationController
 end
 
 
+########### Image Testing ###########
 
+def password_from_image_pixels(url)
+  # fetch into memory
+  data = URI.open(url).read
+  io = StringIO.new(data)
+
+  img = MiniMagick::Image.read(io)   
+  pixels = img.get_pixels        
+
+  # from here, I can do some computation on the pixels and such.
+  # This data will be passed on to other functions like image_to_number or something
+end
+
+#####################################
 
 
 # Debugging Help #
